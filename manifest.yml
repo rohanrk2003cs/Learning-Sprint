@@ -1,0 +1,14 @@
+modules:
+  compass:globalPage:
+    - key: plextech-onboarding-rohan-hello-world-global-page
+      function: global
+      title: plextech-onboarding-rohan
+  function:
+    - key: global
+      handler: global-page.run
+app:
+  id: ari:cloud:ecosystem::app/5ffdc860-5a1c-4fe7-ac8d-2af8f955607c
+permissions:
+  scopes:
+    - write:jira-work
+    - read:account

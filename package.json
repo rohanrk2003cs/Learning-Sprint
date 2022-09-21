@@ -1,0 +1,11 @@
+{
+  "name": "compass-global-page-ui-kit",
+  "version": "1.0.6",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@forge/api": "^2.7.0",
+    "@forge/ui": "^1.4.0"
+  }
+}
