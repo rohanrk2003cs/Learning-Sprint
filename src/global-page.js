@@ -2,7 +2,10 @@ import ForgeUI, { render, Fragment, Text, Form, TextField, TextArea, useEffect, 
 import api, { route } from "@forge/api";
 
 const App = () => {
+  //Stores User's Name
   const[name, setName] = useState(null);
+
+  //Creates Issue in Jira Board
   const addToJiraBoard = async (formData) => {
     let bodyData = {
       fields: {
@@ -41,32 +44,32 @@ const App = () => {
     console.log(`Response: ${response.status} ${response.statusText}`);
     console.log(await response.json());
   }
+
   const onSubmit = async (formData) => {
     console.log(formData.desc);
     await addToJiraBoard(formData);
   };
+
+  //Make GraphQL request and set name
   useEffect(async () => {
     const context = useProductContext();
-    console.log(context);
-    const query = `query { 
-                          me { 
-                            user(accountId: ${context.accountId}{
+    console.log(String(context.accountId));
+    const query = `query  nameQuery { 
+                            user(accountId: "` + `${context.accountId}` +`"){
                                 name
-                                accountId 
+                                accountId
                               }
-                           }
                         }`;
+    console.log(query);
     let userData = await api.asApp().requestGraph(query);
-    console.log("lets see userData:")
-    userData.json()
-          .then( json => {
-            console.log(json.data.me.user)
-            setName(json["data"]["me"]["user"]["name"]);
-          })
+    let json = await userData.json()
+    console.log(json);
+    setName(json.data.user.name);
+
   }, [])
   return (
     <Fragment>
-      <Text>{name}</Text>
+      <Text>Hi {name}!</Text>
       <Form onSubmit={onSubmit}>
         <TextField name="summary" label="Summary" />
         <TextArea name="desc" label="Description" />
