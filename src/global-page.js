@@ -50,8 +50,9 @@ const App = () => {
     console.log(context);
     const query = `query { 
                           me { 
-                            user(accountId: ${context.accountId}){...onAtlassianAccountId 
-                                name 
+                            user(accountId: ${context.accountId}{
+                                name
+                                accountId 
                               }
                            }
                         }`;
@@ -59,10 +60,9 @@ const App = () => {
     console.log("lets see userData:")
     userData.json()
           .then( json => {
-            console.log(json)
-            // setName(json["data"]["me"]["user"]["name"]);
+            console.log(json.data.me.user)
+            setName(json["data"]["me"]["user"]["name"]);
           })
-    // setName(userData.json()["data"]["me"]["user"]["name"]);
   }, [])
   return (
     <Fragment>
